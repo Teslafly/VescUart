@@ -23,17 +23,17 @@ void setup() {
 
   /** Define which ports to use as UART */
   UART.setSerialPort(&Serial1);
+
 }
 
 void loop() {
 
   /** Call the function getVescValues() to acquire data from VESC */
-  if ( UART.getVescValues() ) {
-
-    Serial.println(UART.data.rpm);
-    Serial.println(UART.data.inpVoltage);
-    Serial.println(UART.data.ampHours);
-    Serial.println(UART.data.tachometerAbs);
+  if ( UART.getFWversion()) {
+    Serial.print("FW v");
+    Serial.print(UART.fw_version.major);
+    Serial.print(".");
+    Serial.println(UART.fw_version.minor);
 
   }
   else
@@ -41,5 +41,5 @@ void loop() {
     Serial.println("Failed to get data!");
   }
 
-  delay(50);
+  delay(100);
 }

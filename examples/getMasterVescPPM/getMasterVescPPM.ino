@@ -10,6 +10,7 @@
 
 /** Initiate VescUart class */
 VescUart UART;
+uint8_t masterVescCANID = 0;
 
 void setup() {
 
@@ -28,12 +29,9 @@ void setup() {
 void loop() {
 
   /** Call the function getVescValues() to acquire data from VESC */
-  if ( UART.getVescValues() ) {
+  if ( UART.getMasterVescPPM(masterVescCANID) ) {
 
-    Serial.println(UART.data.rpm);
-    Serial.println(UART.data.inpVoltage);
-    Serial.println(UART.data.ampHours);
-    Serial.println(UART.data.tachometerAbs);
+    Serial.println(UART.data.throttle);
 
   }
   else
@@ -41,5 +39,5 @@ void loop() {
     Serial.println("Failed to get data!");
   }
 
-  delay(50);
+  delay(100);
 }
